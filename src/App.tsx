@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+enum TimerState {
+  Stopped = 1,
+  Running
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="TimerApp">
+      <h1>Knob</h1>
+      <input type="text" />
+      <div>
+        <button>start/stop</button>
+        <button>reset</button>
+      </div> 
+      <input type="checkbox" />
+      <label>Reset on timeout</label>
     </div>
   );
+}
+
+function stopTimer() {
+
+}
+
+function startTimer() {
+
 }
 
 export default App;
