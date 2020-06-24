@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import TimerDisplay from './components/TimerDisplay'
 import './App.css';
 
-enum TimerState {
+export enum TimerState {
   Stopped = 1,
   Running
 }
 
 function App() {
   const [timerState, setTimerState] = useState(TimerState.Stopped)
+  const [seconds, setSeconds] = useState(0)
 
   const onStartStopButtonPress = () => {
     if (timerState === TimerState.Running) {
@@ -24,7 +26,11 @@ function App() {
   return (
     <div className="TimerApp">
       <h1>Knob</h1>
-      <input type="text" />
+        <TimerDisplay
+          seconds={seconds}
+          setSeconds={setSeconds}
+          setTimerState={setTimerState}
+        />
       <div>
         <button onClick={onStartStopButtonPress}>{startStopText}</button>
         <button>reset</button>
