@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import TimerDisplay from './components/TimerDisplay'
+import TimerInput from './components/TimerInput'
 import './App.css';
 
 export enum TimerState {
-  Stopped = 1,
-  Running
+  Stopped = "Stopped",
+  Running = "Running"
 }
 
 function App() {
@@ -14,10 +14,8 @@ function App() {
   const onStartStopButtonPress = () => {
     if (timerState === TimerState.Running) {
       setTimerState(TimerState.Stopped)
-      console.log("stopped")
     } else if (timerState === TimerState.Stopped) {
       setTimerState(TimerState.Running)
-      console.log("running")
     }
   }
 
@@ -26,7 +24,9 @@ function App() {
   return (
     <div className="TimerApp">
       <h1>Knob</h1>
-        <TimerDisplay
+        <h1>Seconds: {seconds}</h1>
+        <h1>State: {timerState}</h1>
+        <TimerInput
           seconds={seconds}
           setSeconds={setSeconds}
           setTimerState={setTimerState}
