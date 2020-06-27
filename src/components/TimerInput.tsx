@@ -1,14 +1,20 @@
 import React, {useState} from 'react';
 import { TimerState } from "../App"
+import "./TimerInput.css"
 
-interface IProps {
-    seconds: number,
-    setSeconds: (seconds: number) => void,
+interface ITimerInputProps {
+    msecTarget: number,
+    setMsecTarget: (seconds: number) => void,
     setTimerState: (timerState: TimerState) => void
 }
 
-function TimerInput(props: IProps) {
+function TimerInput(props: ITimerInputProps) {
     const [input, setInput] = useState("");
+
+    const submitInput = () => {
+        const parsedInput = input.length > 0 ? parseInt(input) : 0
+        props.setMsecTarget(parsedInput)
+    }
 
     const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
         props.setTimerState(TimerState.Stopped);
@@ -16,17 +22,22 @@ function TimerInput(props: IProps) {
     }
 
     const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        if (input.length > 0) {
-            props.setSeconds(parseInt(input));
-        } else {
-            props.setSeconds(0)
-        }
+        submitInput()
     }
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (Number.isInteger(parseInt(e.key))) {
+        if (e.key === "Enter") {
+            submitInput()
+        } else if (Number.isInteger(parseInt(e.key))) {
             setInput(input + e.key)
         }
+    }
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Backspace") {
+            console.log("hi")
+            setInput(input.substring(0, input.length-1))
+        } 
     }
 
     return (
@@ -36,6 +47,8 @@ function TimerInput(props: IProps) {
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyPress={onKeyPress}
+            onKeyDown={onKeyDown}
+            onChange={()=>{}}
             value={input}
         />
     )

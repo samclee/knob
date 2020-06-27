@@ -9,7 +9,7 @@ export enum TimerState {
 
 function App() {
   const [timerState, setTimerState] = useState(TimerState.Stopped)
-  const [seconds, setSeconds] = useState(0)
+  const [msecTarget, setMsecTarget] = useState(0)
 
   const onStartStopButtonPress = () => {
     if (timerState === TimerState.Running) {
@@ -24,11 +24,11 @@ function App() {
   return (
     <div className="TimerApp">
       <h1>Knob</h1>
-        <h1>Seconds: {seconds}</h1>
+        <h1>Milliseconds: {msecTarget}</h1>
         <h1>State: {timerState}</h1>
         <TimerInput
-          seconds={seconds}
-          setSeconds={setSeconds}
+          msecTarget={msecTarget}
+          setMsecTarget={setMsecTarget}
           setTimerState={setTimerState}
         />
       <div>
