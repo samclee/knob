@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { TimerState } from "../App"
+import { TimerState } from "../App";
+import { inputToMs } from "../Utils";
 import "./TimerInput.css"
 
 interface ITimerInputProps {
@@ -12,8 +13,7 @@ function TimerInput(props: ITimerInputProps) {
     const [input, setInput] = useState("");
 
     const submitInput = () => {
-        const parsedInput = input.length > 0 ? parseInt(input) : 0
-        props.setMsecTarget(parsedInput)
+        props.setMsecTarget(inputToMs(input))
     }
 
     const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -29,13 +29,13 @@ function TimerInput(props: ITimerInputProps) {
         if (e.key === "Enter") {
             submitInput()
         } else if (Number.isInteger(parseInt(e.key))) {
-            setInput(input + e.key)
+            const base = input.length < 6 ? input : input.substring(1)
+            setInput(base + e.key)
         }
     }
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Backspace") {
-            console.log("hi")
             setInput(input.substring(0, input.length-1))
         } 
     }
@@ -54,4 +54,4 @@ function TimerInput(props: ITimerInputProps) {
     )
 }
 
-export default TimerInput
+export { TimerInput }

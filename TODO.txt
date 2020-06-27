@@ -1,3 +1,4 @@
-0) Improve TimerInput to use onInput and not accept non-numerical characters
-1) Create a "TimerDisplay" component
-2) Wrap "TimerDisplay" and "TimerInput" in a "TimerComponent" component
+0) Change `inputToMs()` to cap time values
+1) Create personal ms display function and uninstall pretty-ms
+2) Create a "TimerDisplay" component
+3) Wrap "TimerDisplay" and "TimerInput" in a "TimerComponent" component

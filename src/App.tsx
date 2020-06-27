@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import TimerInput from './components/TimerInput'
+import { TimerInput, StartStopButton } from './components'
 import './App.css';
+const prettyMs = require('pretty-ms');
 
 export enum TimerState {
   Stopped = "Stopped",
@@ -11,32 +12,25 @@ function App() {
   const [timerState, setTimerState] = useState(TimerState.Stopped)
   const [msecTarget, setMsecTarget] = useState(0)
 
-  const onStartStopButtonPress = () => {
-    if (timerState === TimerState.Running) {
-      setTimerState(TimerState.Stopped)
-    } else if (timerState === TimerState.Stopped) {
-      setTimerState(TimerState.Running)
-    }
-  }
-
-  const startStopText = (timerState === TimerState.Running) ? "Stop" : "Start";
-
   return (
     <div className="TimerApp">
       <h1>Knob</h1>
-        <h1>Milliseconds: {msecTarget}</h1>
-        <h1>State: {timerState}</h1>
-        <TimerInput
-          msecTarget={msecTarget}
-          setMsecTarget={setMsecTarget}
+      <h1>Milliseconds target: {prettyMs(msecTarget)}</h1>
+      <h1>State: {timerState}</h1>
+      <TimerInput
+        msecTarget={msecTarget}
+        setMsecTarget={setMsecTarget}
+        setTimerState={setTimerState}
+      />
+      <div>
+        <StartStopButton
+          timerState={timerState}
           setTimerState={setTimerState}
         />
-      <div>
-        <button onClick={onStartStopButtonPress}>{startStopText}</button>
         <button>reset</button>
       </div> 
       <input type="checkbox" />
-      <label>Reset on timeout</label>
+      <label>Reset to target on timeout</label>
     </div>
   );
 }
