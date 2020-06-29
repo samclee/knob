@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TimerInput, StartStopButton } from './components'
 import './App.css';
-const prettyMs = require('pretty-ms');
+import { msToString } from "./Utils"
 
 export enum TimerState {
   Stopped = "Stopped",
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="TimerApp">
       <h1>Knob</h1>
-      <h1>Milliseconds target: {prettyMs(msecTarget)}</h1>
+      <h1>Milliseconds target: {msToString(msecTarget)}</h1>
       <h1>State: {timerState}</h1>
       <TimerInput
         msecTarget={msecTarget}

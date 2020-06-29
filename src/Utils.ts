@@ -1,20 +1,22 @@
-var ms = require('milliseconds');
+const ms = require('milliseconds');
+const parseMilliseconds = require('parse-ms');
 
-export function inputToMs(input: string) {
-    if (input.length === 0) {
-        return 0
-    } else if (input.length < 6) {
-        const diff = 6 - input.length;
-        const filler = "0".repeat(diff);
-        input = filler + input
-    }
+export function inputToMs(input: string): number {
+    input = input.padStart(6, "0")
 
     const inputAry = [input.substr(0, 2), input.substr(2, 2), input.substr(4, 2)]
-    let timeAry= [0, 0, 0] // [hrs, min, sec]
-    for (let i = 0; i < 3; i++) {
-        timeAry[i] = parseInt(inputAry[i])
-    }
+    const timeAry= inputAry.map((digitStr) => parseInt(digitStr))
 
-    return ms.hours(timeAry[0]) + ms.minutes(timeAry[1]) + ms.seconds(timeAry[2])
+    const maxTime = 359999000 // 99 hours, 59 minutes, 59 seconds in milliseconds
+    const totalMs = ms.hours(timeAry[0]) + ms.minutes(timeAry[1]) + ms.seconds(timeAry[2])
+    return Math.min(totalMs, maxTime)
+}
 
+export function msToString(ms: number): string {
+    const {days, hours, minutes, seconds} = parseMilliseconds(ms)
+    const times = [hours + 24 * days, minutes, seconds].map(
+        (timeVal: number) => timeVal.toString().padStart(2, "0")
+    )
+    
+    return times[0] + "h " + times[1]  + "m " + times[2]  + "s";
 }
