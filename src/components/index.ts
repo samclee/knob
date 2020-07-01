@@ -1,2 +1,2 @@
-export { TimerInput } from "./TimerInput";
+export { TimerComponent } from "./TimerComponent";
 export { StartStopButton } from "./StartStopButton";

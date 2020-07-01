@@ -20,3 +20,7 @@ export function msToString(ms: number): string {
     
     return times[0] + "h " + times[1]  + "m " + times[2]  + "s";
 }
+
+export function inputToString(input: string) {
+    return msToString(inputToMs(input))
+}

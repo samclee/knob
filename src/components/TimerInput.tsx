@@ -1,27 +1,32 @@
 import React, {useState} from 'react';
 import { TimerState } from "../App";
-import { inputToMs } from "../Utils";
-import "./TimerInput.css"
+import { TimerComponentMode } from "./TimerComponent";
+import { inputToMs, inputToString } from "../Utils";
 
-interface ITimerInputProps {
+export interface ITimerInputProps {
     msecTarget: number,
     setMsecTarget: (seconds: number) => void,
-    setTimerState: (timerState: TimerState) => void
+    setTimerState: (timerState: TimerState) => void,
+    setMode: (mode: TimerComponentMode) => void,
+    setCurMseconds: (seconds: number) => void
 }
 
 function TimerInput(props: ITimerInputProps) {
-    const [input, setInput] = useState("");
+    const [input, setInput] = useState("")
 
     const submitInput = () => {
-        props.setMsecTarget(inputToMs(input))
+        const mseconds = inputToMs(input)
+        props.setMsecTarget(mseconds)
+        props.setCurMseconds(mseconds)
     }
 
-    const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-        props.setTimerState(TimerState.Stopped);
+    const onFocus = () => {
+        props.setTimerState(TimerState.Stopped)
         setInput("")
     }
 
-    const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const onBlur = () => {
+        props.setMode(TimerComponentMode.Display)
         submitInput()
     }
 
@@ -42,14 +47,14 @@ function TimerInput(props: ITimerInputProps) {
 
     return (
         <input
-            className="TimerDisplay"
+            className="TimerBox"
             type="text"
             onFocus={onFocus}
             onBlur={onBlur}
             onKeyPress={onKeyPress}
             onKeyDown={onKeyDown}
             onChange={()=>{}}
-            value={input}
+            value={inputToString(input)}
         />
     )
 }
