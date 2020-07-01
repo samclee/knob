@@ -1,3 +1,2 @@
-0) Automatically focus TimerInput when we switch to it 
-1) Hook up reset button
-2) Start doing actual time stuff
+0) Start doing actual time stuff
+1) Hook up reset button  

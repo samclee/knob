@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import { TimerState } from "../App";
-import { TimerComponentMode } from "./TimerComponent";
-import { inputToMs, inputToString } from "../Utils";
+import { inputToMs, inputToString, msToString } from "../Utils";
+import "./TimerInput.css"
 
 export interface ITimerInputProps {
+    timerState: TimerState,
+    setTimerState: (timerState: TimerState) => void,
+
     msecTarget: number,
     setMsecTarget: (seconds: number) => void,
-    setTimerState: (timerState: TimerState) => void,
-    setMode: (mode: TimerComponentMode) => void,
+
+    curMseconds: number,
     setCurMseconds: (seconds: number) => void
 }
 
@@ -26,7 +29,6 @@ function TimerInput(props: ITimerInputProps) {
     }
 
     const onBlur = () => {
-        props.setMode(TimerComponentMode.Display)
         submitInput()
     }
 
@@ -45,6 +47,10 @@ function TimerInput(props: ITimerInputProps) {
         } 
     }
 
+    const val = (props.timerState === TimerState.Running) ? 
+                    msToString(props.curMseconds) : 
+                    inputToString(input)
+
     return (
         <input
             className="TimerBox"
@@ -54,7 +60,7 @@ function TimerInput(props: ITimerInputProps) {
             onKeyPress={onKeyPress}
             onKeyDown={onKeyDown}
             onChange={()=>{}}
-            value={inputToString(input)}
+            value={val}
         />
     )
 }

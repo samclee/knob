@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StartStopButton, TimerComponent } from './components'
+import { StartStopButton, TimerInput } from './components'
 import './App.css';
 import { msToString } from "./Utils"
 
@@ -18,10 +18,11 @@ function App() {
       <h1>Knob</h1>
       <h1>Milliseconds target: {msToString(msecTarget)}</h1>
       <h1>State: {timerState}</h1>
-      <TimerComponent
+      <TimerInput
+        timerState={timerState}
+        setTimerState={setTimerState}
         msecTarget={msecTarget}
         setMsecTarget={setMsecTarget}
-        setTimerState={setTimerState}
         curMseconds={curMseconds}
         setCurMseconds={setCurMseconds}
       />
