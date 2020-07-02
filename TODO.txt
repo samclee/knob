@@ -1,2 +1,3 @@
-0) Start doing actual time stuff
-1) Hook up reset button  
+0) Create s conversion functions
+1) Replace ms conversion functions with new functions and uninstall packages
+2) Create "useEffect" timer

@@ -1,5 +1,27 @@
-const ms = require('milliseconds');
-const parseMilliseconds = require('parse-ms');
+const ms = require('milliseconds'); // different units to ms
+const parseMilliseconds = require('parse-ms'); // ms to different units
+
+interface Convertor {
+    fromHours: (hours: number) => number
+    fromMinutes: (minutes: number) => number
+}
+
+const convertor: Convertor = {
+    fromHours: (hours: number) => hours * 3600,
+    fromMinutes: (minutes: number) => minutes * 60
+}
+
+function inputToSeconds(input: string): number {
+
+}
+
+function formatInput(input: string): string {
+
+}
+
+function formatSeconds(seconds: number): string {
+
+}
 
 export function inputToMs(input: string): number {
     input = input.padStart(6, "0")
